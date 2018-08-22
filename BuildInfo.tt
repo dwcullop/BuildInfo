@@ -1,14 +1,11 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="EnvDTE" #>
-<#@ import namespace="System.Diagnostics" #>
-<#@ import namespace="System.IO" #>
 <#@ output extension=".cs" #>
 <#
     const string FMT_DATE_FORMAL = "MMMM d, yyyy h:mm:ss tt";
     const string FMT_DATE_COMMENT = "MMMM d, yyyy h:mm:ss.ffffff tt";
 
     DateTime dtBuildDate = DateTime.UtcNow;
-    string   strBuildHash = String.Empty;
     string   strNamespace = String.Empty;
 
     var dte = ((IServiceProvider)Host).GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
@@ -16,18 +13,6 @@
     try
     {
         strNamespace = ((EnvDTE.Project)((Array)dte.ActiveSolutionProjects).GetValue(0)).Properties.Item("DefaultNamespace").Value.ToString();
-    }
-    catch ( Exception /*e*/ )
-    {
-    }
-
-    try
-    {
-        var directory = Path.GetDirectoryName(dte.Solution.FullName);
-        strBuildHash = Process.Start(new ProcessStartInfo{FileName = "git", Arguments = "describe --long --always", UseShellExecute = false, RedirectStandardOutput = true, CreateNoWindow = true, WorkingDirectory = directory})
-                                .StandardOutput
-                                .ReadToEnd()
-                                .Trim();
     }
     catch ( Exception /*e*/ )
     {
@@ -54,12 +39,7 @@ namespace <#=strNamespace #>
         private static AssemblyName     BuildAssemblyName { get; }  = Assembly.GetExecutingAssembly().GetName();
         public static DateTimeOffset    BuildDateUtc { get; }       = DateTime.FromBinary(BUILD_DATE_BINARY_UTC);
         public static string            ModuleText { get; }         =  BuildAssemblyName.Name;
-        public static string            BuildHash { get; }          = "<#=strBuildHash #>";
         public static string            VersionText { get; }        = "v" + BuildAssemblyName.Version.ToString()
-<# if ( !String.IsNullOrEmpty(strBuildHash) ) 
-{ #>
-                                                                                + "." + BuildHash
-<# } #>
 #if DEBUG
                                                                                 + " [DEBUG]"
 #endif
