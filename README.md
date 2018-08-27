@@ -8,7 +8,7 @@ If you've ever wanted a way to programmatically have access to Build Information
 It's always been trivial to get the version number of any Dot Net Assembly.  But what if you wanted more detailed information, such as the build date, git branch or hash, or whatever else?  So you may write something like this:
 
 ```csharp
-// SomeProject v0.9.0.0 (Build Date: August 9, 2018 7:57:21 PM UTC)
+// SomeProject v0.9.0.0.75c95af (Build Date: August 9, 2018 7:57:21 PM UTC)
 Console.WriteLine( BuildInfo.DisplayText ); 
 ```
 
@@ -61,20 +61,21 @@ namespace DareWare.SWGoH.ModMaster
 {
     public static class BuildInfo
     {
-        private const long              BUILD_DATE_BINARY_UTC       = 0x48d60867d1d71049;    // August 22, 2018 7:45:31.469012 PM UTC
+        private const long              BUILD_DATE_BINARY_UTC       = 0x48d60c5b7e5bd8b9;    // August 27, 2018 8:27:22.100959 PM UTC
 
         private static AssemblyName     BuildAssemblyName { get; }  = Assembly.GetExecutingAssembly().GetName();
         public static DateTimeOffset    BuildDateUtc { get; }       = DateTime.FromBinary(BUILD_DATE_BINARY_UTC);
-        public static string            ModuleText { get; }         =  BuildAssemblyName.Name;
-        public static string            BuildHash { get; }          = "9ffc797";
+        public static string            ModuleText { get; }         = BuildAssemblyName.Name;
+        public static string            CommitHash { get; }         = "75c95af9b21235c48c8d6b6a7d46af62cc15a316";
+        public static string            CommitHashAbbrev { get; }   = "75c95af";
         public static string            VersionText { get; }        = "v" + BuildAssemblyName.Version.ToString()
-                                                                                + "." + BuildHash
+                                                                                + "." + CommitHashAbbrev
 #if DEBUG
                                                                                 + " [DEBUG]"
 #endif
                                                                                 ;
 
-        public static string            BuildDateText { get; }      = "August 22, 2018 7:45:31 PM UTC";
+        public static string            BuildDateText { get; }      = "Monday, August 27, 2018 8:27:22 PM UTC";
         public static string            DisplayText { get; }        = $"{ModuleText} {VersionText} (Build Date: {BuildDateText})";
     }
 }
