@@ -61,20 +61,18 @@ namespace DareWare.SWGoH.ModMaster
 {
     public static class BuildInfo
     {
-        private const long              BUILD_DATE_BINARY_UTC       = 0x48d60867d1d71049;    // August 22, 2018 7:45:31.469012 PM UTC
+        private const long              BUILD_DATE_BINARY_UTC       = 0x48d60c5b7e5bd8b9;    // August 27, 2018 8:27:22.100959 PM UTC
 
         private static AssemblyName     BuildAssemblyName { get; }  = Assembly.GetExecutingAssembly().GetName();
         public static DateTimeOffset    BuildDateUtc { get; }       = DateTime.FromBinary(BUILD_DATE_BINARY_UTC);
-        public static string            ModuleText { get; }         =  BuildAssemblyName.Name;
-        public static string            BuildHash { get; }          = "9ffc797";
+        public static string            ModuleText { get; }         = BuildAssemblyName.Name;
         public static string            VersionText { get; }        = "v" + BuildAssemblyName.Version.ToString()
-                                                                                + "." + BuildHash
 #if DEBUG
                                                                                 + " [DEBUG]"
 #endif
                                                                                 ;
 
-        public static string            BuildDateText { get; }      = "August 22, 2018 7:45:31 PM UTC";
+        public static string            BuildDateText { get; }      = "Monday, August 27, 2018 8:27:22 PM UTC";
         public static string            DisplayText { get; }        = $"{ModuleText} {VersionText} (Build Date: {BuildDateText})";
     }
 }
