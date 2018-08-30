@@ -8,7 +8,7 @@ If you've ever wanted a way to programmatically have access to Build Information
 It's always been trivial to get the version number of any Dot Net Assembly.  But what if you wanted more detailed information, such as the build date, git branch or hash, or whatever else?  So you may write something like this:
 
 ```csharp
-// SomeProject v0.9.0.0 (Build Date: August 9, 2018 7:57:21 PM UTC)
+// SomeProject v0.9.0.0.75c95af (Build Date: August 9, 2018 7:57:21 PM UTC)
 Console.WriteLine( BuildInfo.DisplayText ); 
 ```
 
