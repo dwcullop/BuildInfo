@@ -34,8 +34,12 @@ However, you may prefer to harness the power of Git by adding my simple repo as 
 If you want to include the Git Hash of the current checked out branch in the information that is available via the static class, use the `feature/githash` branch, like this:
 
     git submodule add -b feature/githash -f https://github.com/dwcullop/BuildInfo BuildInfo
+    
+**NOTICE**: If you do not use the submodule option, make sure you specify the `BuildInfo.cs` in your `.gitignore` file.  It is usually considered bad-form to check generated files into source control.
 
-**NOTICE**: If you do not use the submodule option, make sure you specify the `BuildInfo.cs` in your `.gitignore` file.  It is bad-form and completely unprofessional to check generated files into source control.
+### :bulb: Pro Tip
+
+To ensure that the Build Timestamp is updated on every single build, I recommend using one of the Visual Studio extensions that forces all T4 code to re-execute on every build, [such as this one](https://marketplace.visualstudio.com/items?itemName=BennorMcCarthy.AutoT4).
 
 ## Warranties
 
